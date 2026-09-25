@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emergency Recovery</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a><a href="toolbox.html">Toolbox</a></nav>
+<div class="hero"><h1>Emergency Recovery</h1><p>Build a tiny personal runbook as you discover how each scored service is configured.</p></div>
+<div class="quick-note">Device reverts cost points, so record quick recovery and rollback information as you learn the environment.</div>
+<div class="card">
+<h2>Add Recovery Note</h2>
+<div class="form-grid">
+<div class="field"><label>Host / Service</label><input id="host"></div>
+<div class="field"><label>Check Command</label><input id="check"></div>
+<div class="field"><label>Restart / Recovery Command</label><input id="restart"></div>
+</div>
+<div class="field"><label>Config / Log Locations</label><textarea id="locations"></textarea></div>
+<div class="field"><label>Rollback / Notes</label><textarea id="notes"></textarea></div>
+<button class="btn" id="add">Add Recovery Note</button>
+</div>
+<div id="entries"></div>
+</div><script src="data.js"></script><script>
+const name="recovery";
+function render(){const a=load(name);entries.innerHTML=a.map((x,i)=>`<div class="entry"><div class="entry-head"><h3>${esc(x.host)}</h3></div><pre class="command">CHECK: ${esc(x.check)}\nRECOVER: ${esc(x.restart)}</pre><p><b>Config/Logs:</b> ${esc(x.locations).replace(/\n/g,"<br>")}</p><p><b>Notes:</b> ${esc(x.notes).replace(/\n/g,"<br>")}</p><button class="small-btn danger" onclick="del(${i})">Delete</button></div>`).join("")}
+function del(i){const a=load(name);a.splice(i,1);save(name,a);render()}
+add.onclick=()=>{const a=load(name);a.push({host:host.value,check:check.value,restart:restart.value,locations:locations.value,notes:notes.value});save(name,a);render();}
+render();
+</script></body></html>

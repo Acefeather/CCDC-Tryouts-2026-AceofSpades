@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Steezy — Ubuntu</title><link rel="stylesheet" href="style.css"></head>
+<body data-page="ubuntu"><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a><a href="toolbox.html">Toolbox</a></nav>
+<div class="hero"><h1>Big Steezy — Ubuntu</h1><p>Ubuntu Server 18.04 hardening reference tailored to the BYU CCDC tryout services.</p></div>
+<div class="toolbar">
+  <div class="progress-wrap"><div class="progress"><div></div></div><div class="progress-label"></div></div>
+  <button id="reset" class="btn">Reset statuses</button>
+</div>
+<div class="legend"><span><span class="dot green"></span>Done</span><span><span class="dot yellow"></span>Almost Done</span><span><span class="dot red"></span>Return to Complete</span></div>
+<section class="section"><h2>Baseline / Role</h2><div class="task" data-id="u-base1">
+      <div class="task-text">Run <code>hostname</code>, <code>ip addr</code>, and <code>ip route</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-base2">
+      <div class="task-text">Identify machine role and scored services before disabling anything.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Users / Privileges</h2><div class="task" data-id="u-user1">
+      <div class="task-text">Review users with <code>cat /etc/passwd</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-user2">
+      <div class="task-text">Keep the required tryout users; check sudo members with <code>getent group sudo</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-user3">
+      <div class="task-text">Check for extra UID 0 accounts.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-user4">
+      <div class="task-text">If you change a scored user's password, submit the required Password Change Request (PCR).</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>SSH</h2><div class="task" data-id="u-ssh1">
+      <div class="task-text">Review <code>/etc/ssh/sshd_config</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-ssh2">
+      <div class="task-text">Disable direct root SSH login if not required.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-ssh3">
+      <div class="task-text">Review root/admin <code>authorized_keys</code> for unknown keys.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-ssh4">
+      <div class="task-text">Test SSH configuration before restarting/reloading.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Tryout Services — Ubuntu</h2><div class="task" data-id="u-try1">
+      <div class="task-text"><strong>HTTP:</strong> if Apache/Nginx is scored, preserve the expected page/content and check its dependencies.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-try2">
+      <div class="task-text"><strong>SSH:</strong> keep scored SSH authentication functional while hardening configuration and keys.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-try3">
+      <div class="task-text"><strong>FTP:</strong> if FTP is hosted here, verify the daemon, authentication, root/home paths, and firewall access.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-try4">
+      <div class="task-text"><strong>POP3:</strong> if POP3 is hosted here, verify the mail service, authentication, and listening port.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-try5">
+      <div class="task-text"><strong>AD/DNS:</strong> if Linux is providing DNS or directory-related services, verify them before modifying firewall/network settings.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-try6">
+      <div class="task-text">Before stopping a service, confirm it is not scored and is not a dependency of a scored service.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Services / Ports</h2><div class="task" data-id="u-svc1">
+      <div class="task-text">Run <code>systemctl --type=service --state=running</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-svc2">
+      <div class="task-text">Investigate unfamiliar services; disable only confirmed unnecessary services.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-port1">
+      <div class="task-text">Run <code>sudo ss -tulpn</code> and match listeners to required services.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-port2">
+      <div class="task-text">Investigate unexpected ports/processes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Firewall</h2><div class="task" data-id="u-fw1">
+      <div class="task-text">Run <code>sudo ufw status verbose</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-fw2">
+      <div class="task-text">Allow required/scored services and restrict unnecessary inbound access.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-fw3">
+      <div class="task-text">Do not block source IPs or create scoring-engine-only rules; public services must remain broadly reachable.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Processes / Connections</h2><div class="task" data-id="u-proc1">
+      <div class="task-text">Run <code>ps aux</code> and review suspicious root processes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-proc2">
+      <div class="task-text">Investigate processes executing from <code>/tmp</code>, <code>/dev/shm</code>, or unusual paths.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-net1">
+      <div class="task-text">Run <code>ss -tunap</code> and inspect unusual outbound connections.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Persistence</h2><div class="task" data-id="u-cron1">
+      <div class="task-text">Run <code>sudo crontab -l</code>; inspect <code>/etc/crontab</code> and <code>/etc/cron.d/</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-timer1">
+      <div class="task-text">Run <code>systemctl list-timers --all</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-key1">
+      <div class="task-text">Review privileged users' SSH authorized keys.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-suid1">
+      <div class="task-text">Run <code>find / -perm /6000 -type f 2>/dev/null</code> and investigate unusual SUID/SGID files.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Logs / Threat Response</h2><div class="task" data-id="u-log1">
+      <div class="task-text">Review <code>/var/log/auth.log</code> for logins, sudo usage, and failed auth.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-log2">
+      <div class="task-text">Run <code>last</code>, <code>who</code>, and <code>w</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-log3">
+      <div class="task-text">Use <code>journalctl</code> for service/system events.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-log4">
+      <div class="task-text">Do not disable the preconfigured Splunk forwarding to the Black Team indexer.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Quick Integrity / Role</h2><div class="task" data-id="u-int1">
+      <div class="task-text">Check suspicious recent changes in <code>/etc</code> and <code>/var/www</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-web1">
+      <div class="task-text">If Apache/Nginx is scored, check service status, web root, permissions, and logs.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-app1">
+      <div class="task-text">Verify AppArmor with <code>sudo aa-status</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="u-final1">
+      <div class="task-text">Verify required content/authentication still works after changes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section>
+</div><script src="script.js"></script></body></html>
