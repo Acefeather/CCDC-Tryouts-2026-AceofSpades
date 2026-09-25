@@ -1,0 +1,142 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CCDC Toolbox</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a></nav>
+<div class="hero"><h1>🧰 CCDC Toolbox</h1><p>Fast references, copy/paste searches, blank templates, and defensive scripts.</p></div>
+
+<div class="quick-note note-warn"><strong>Competition reminder:</strong> use the blank templates as structure only. The team packet says AI may not write or edit inject responses during the competition.</div>
+
+<section class="section"><h2>Splunk Query Library</h2>
+<div class="toolbox-grid">
+    <div class="tool-card">
+      <h3>Basic: Windows host</h3>
+      <div class="copy-row">
+        <pre class="command" id="q0">host=lapis</pre>
+        <button class="copy-btn" onclick="copyText('q0',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Basic: Ubuntu host</h3>
+      <div class="copy-row">
+        <pre class="command" id="q1">host=iron</pre>
+        <button class="copy-btn" onclick="copyText('q1',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows failed logons</h3>
+      <div class="copy-row">
+        <pre class="command" id="q2">host=lapis EventCode=4625</pre>
+        <button class="copy-btn" onclick="copyText('q2',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows successful logons</h3>
+      <div class="copy-row">
+        <pre class="command" id="q3">host=lapis EventCode=4624</pre>
+        <button class="copy-btn" onclick="copyText('q3',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows account creation</h3>
+      <div class="copy-row">
+        <pre class="command" id="q4">host=lapis EventCode=4720</pre>
+        <button class="copy-btn" onclick="copyText('q4',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows account deletion</h3>
+      <div class="copy-row">
+        <pre class="command" id="q5">host=lapis EventCode=4726</pre>
+        <button class="copy-btn" onclick="copyText('q5',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows privileged-group additions</h3>
+      <div class="copy-row">
+        <pre class="command" id="q6">host=lapis (EventCode=4728 OR EventCode=4732 OR EventCode=4756)</pre>
+        <button class="copy-btn" onclick="copyText('q6',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows new service</h3>
+      <div class="copy-row">
+        <pre class="command" id="q7">host=lapis EventCode=7045</pre>
+        <button class="copy-btn" onclick="copyText('q7',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows PowerShell events</h3>
+      <div class="copy-row">
+        <pre class="command" id="q8">host=lapis (source=&quot;WinEventLog:Microsoft-Windows-PowerShell/Operational&quot; OR EventCode=4104 OR EventCode=4103)</pre>
+        <button class="copy-btn" onclick="copyText('q8',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Windows Defender events</h3>
+      <div class="copy-row">
+        <pre class="command" id="q9">host=lapis source=&quot;WinEventLog:Microsoft-Windows-Windows Defender/Operational&quot;</pre>
+        <button class="copy-btn" onclick="copyText('q9',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Linux SSH activity</h3>
+      <div class="copy-row">
+        <pre class="command" id="q10">host=iron (&quot;sshd&quot; OR &quot;Accepted password&quot; OR &quot;Accepted publickey&quot; OR &quot;Failed password&quot;)</pre>
+        <button class="copy-btn" onclick="copyText('q10',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Linux sudo activity</h3>
+      <div class="copy-row">
+        <pre class="command" id="q11">host=iron sudo</pre>
+        <button class="copy-btn" onclick="copyText('q11',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Linux authentication failures</h3>
+      <div class="copy-row">
+        <pre class="command" id="q12">host=iron (&quot;authentication failure&quot; OR &quot;Failed password&quot;)</pre>
+        <button class="copy-btn" onclick="copyText('q12',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Errors around service failure</h3>
+      <div class="copy-row">
+        <pre class="command" id="q13">(host=lapis OR host=iron) (error OR failed OR failure)</pre>
+        <button class="copy-btn" onclick="copyText('q13',this)">Copy</button>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>Top source IPs</h3>
+      <div class="copy-row">
+        <pre class="command" id="q14">* | stats count by src_ip | sort - count</pre>
+        <button class="copy-btn" onclick="copyText('q14',this)">Copy</button>
+      </div>
+    </div></div></section>
+
+<section class="section"><h2>Windows Security Log Reference</h2>
+<div style="padding:14px">
+<a class="link-card" href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/" target="_blank" rel="noopener">
+<strong>Ultimate Windows Security — Security Log Encyclopedia</strong><br>
+<span style="color:var(--muted)">Look up unfamiliar Windows Event IDs quickly.</span>
+</a>
+<p><strong>Quick IDs:</strong> 4624 successful logon • 4625 failed logon • 4720 user created • 4726 user deleted • 4732 member added to local group • 7045 service installed</p>
+</div></section>
+
+<section class="section"><h2>Blank Report / Memo Templates</h2>
+<div style="padding:14px" class="toolbox-grid">
+<div class="tool-card"><h3>Incident Response Report</h3><p>Blank structure for documenting Red Team activity and recovery.</p><a class="go" href="incident_template.html">Open Template</a></div>
+<div class="tool-card"><h3>Inject Memo</h3><p>Blank professional memo structure plus final submission checklist.</p><a class="go" href="inject_template.html">Open Template</a></div>
+</div></section>
+
+<section class="section"><h2>Defensive Scripts</h2>
+<div style="padding:14px">
+<p>These are deliberately read-only: they collect baselines and persistence information without changing configuration.</p>
+<div class="script-list">
+<a href="scripts/Windows_QuickBaseline.ps1" download><strong>Windows_QuickBaseline.ps1</strong> — users, admins, services, ports, firewall, tasks, Defender, recent logons</a>
+<a href="scripts/Windows_PersistenceCheck.ps1" download><strong>Windows_PersistenceCheck.ps1</strong> — Run keys, scheduled tasks, services, PowerShell profiles, account/service events</a>
+<a href="scripts/Ubuntu_QuickBaseline.sh" download><strong>Ubuntu_QuickBaseline.sh</strong> — users, sudo, ports, services, processes, UFW, cron, auth logs, AppArmor</a>
+<a href="scripts/Ubuntu_PersistenceCheck.sh" download><strong>Ubuntu_PersistenceCheck.sh</strong> — cron, systemd, SUID/SGID, SSH keys, startup files, recent /etc changes</a>
+<a href="scripts/README.md" download><strong>README.md</strong> — how to run the scripts and what they collect</a>
+</div>
+</div></section>
+</div><script src="toolbox.js"></script></body></html>

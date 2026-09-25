@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Bedrock — VyOS</title><link rel="stylesheet" href="style.css"></head>
+<body data-page="vyos"><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a><a href="toolbox.html">Toolbox</a></nav>
+<div class="hero"><h1>Big Bedrock — VyOS</h1><p>Small router/firewall safety checklist for the tryout topology.</p></div>
+<div class="toolbar">
+  <div class="progress-wrap"><div class="progress"><div></div></div><div class="progress-label"></div></div>
+  <button id="reset" class="btn">Reset statuses</button>
+</div>
+<div class="legend"><span><span class="dot green"></span>Done</span><span><span class="dot yellow"></span>Almost Done</span><span><span class="dot red"></span>Return to Complete</span></div>
+<section class="section"><h2>Baseline</h2><div class="task" data-id="v-base1">
+      <div class="task-text">Record interfaces, assigned addresses, default route, and current NAT/firewall configuration.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="v-base2">
+      <div class="task-text">Confirm LAN is <code>172.16.1.0/24</code> and do not change competition addressing unless directed.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>NAT / Public Access</h2><div class="task" data-id="v-nat1">
+      <div class="task-text">Preserve the configured 1:1 NAT used to expose services on public addresses.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="v-nat2">
+      <div class="task-text">If a scored service disappears externally, verify NAT/firewall before assuming the server itself is broken.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Firewall</h2><div class="task" data-id="v-fw1">
+      <div class="task-text">Review rules before editing them; avoid broad destructive changes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="v-fw2">
+      <div class="task-text">Do not block source IP addresses or create scoring-engine-only allow rules.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="v-fw3">
+      <div class="task-text">Keep required public services reachable from the public network.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Recovery</h2><div class="task" data-id="v-rec1">
+      <div class="task-text">Before a major change, save/record the relevant configuration so you can roll back.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="v-rec2">
+      <div class="task-text">After changes, verify routing/NAT and then validate services from the appropriate side of the network.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section>
+</div><script src="script.js"></script></body></html>

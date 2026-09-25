@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Cheesey — Windows</title><link rel="stylesheet" href="style.css"></head>
+<body data-page="windows"><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a><a href="toolbox.html">Toolbox</a></nav>
+<div class="hero"><h1>Big Cheesey — Windows</h1><p>Windows Server 2016 hardening reference tailored to the BYU CCDC tryout services.</p></div>
+<div class="toolbar">
+  <div class="progress-wrap"><div class="progress"><div></div></div><div class="progress-label"></div></div>
+  <button id="reset" class="btn">Reset statuses</button>
+</div>
+<div class="legend"><span><span class="dot green"></span>Done</span><span><span class="dot yellow"></span>Almost Done</span><span><span class="dot red"></span>Return to Complete</span></div>
+<section class="section"><h2>Users & Accounts</h2><div class="task" data-id="w-users1">
+      <div class="task-text">Review local users with <code>lusrmgr.msc</code> or <code>net user</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-users2">
+      <div class="task-text">Keep the required tryout users; disable only accounts that are truly unauthorized.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-users3">
+      <div class="task-text">Review Administrators, Remote Desktop Users, Backup Operators, and other privileged groups.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-users4">
+      <div class="task-text">If you change a scored user's password, remember that the packet requires a Password Change Request (PCR).</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Password / Account Policy</h2><div class="task" data-id="w-pass1">
+      <div class="task-text"><code>Win + R → secpol.msc</code> → Account Policies → Password Policy.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-pass2">
+      <div class="task-text">Set strong minimum length, complexity, history, and disable reversible encryption.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-pass3">
+      <div class="task-text">Configure a reasonable lockout threshold/duration without making lockout DoS too easy.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Local Security Policy</h2><div class="task" data-id="w-sec1">
+      <div class="task-text"><code>secpol.msc</code> → Local Policies → Security Options.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-sec2">
+      <div class="task-text">Restrict anonymous SAM/share enumeration and review UAC/Admin Approval Mode.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-sec3">
+      <div class="task-text">Review NTLM/SMB-signing settings where compatible.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-sec4">
+      <div class="task-text">Review User Rights Assignment: RDP, service logon, network access, debug programs, shutdown.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Tryout Services — Windows</h2><div class="task" data-id="w-try1">
+      <div class="task-text"><strong>AD/DNS:</strong> if this box is providing Active Directory/DNS, verify AD DS/DNS services stay running and LDAP authentication still works.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try2">
+      <div class="task-text"><strong>RDP:</strong> keep RDP available if it is being scored; require NLA where compatible and verify allowed users.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try3">
+      <div class="task-text"><strong>HTTP:</strong> if IIS/HTTP is hosted here, preserve the expected web content—not just the open port.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try4">
+      <div class="task-text"><strong>FTP:</strong> if FTP is hosted here, verify the service, authentication, home/root path, and firewall rules.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try5">
+      <div class="task-text"><strong>POP3:</strong> if mail is hosted here, verify the POP3 service, authentication, and listening port.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try6">
+      <div class="task-text"><strong>SSH:</strong> if OpenSSH Server is enabled for scoring, harden it without disabling required access.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-try7">
+      <div class="task-text">Before stopping any service, confirm it is not one of the tryout's scored services or a dependency of one.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Services</h2><div class="task" data-id="w-svc1">
+      <div class="task-text"><code>Win + R → services.msc</code>; inventory running and Automatic services.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-svc2">
+      <div class="task-text">Investigate unfamiliar services, executable paths, and service accounts.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-svc3">
+      <div class="task-text">Disable only services confirmed unnecessary and not scored.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Firewall / Network</h2><div class="task" data-id="w-fw1">
+      <div class="task-text"><code>Win + R → wf.msc</code>; verify firewall is enabled for relevant profiles.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-fw2">
+      <div class="task-text">Review inbound/outbound rules; remove suspicious or overly broad allows without blocking public scored services.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-fw3">
+      <div class="task-text">Run <code>netstat -ano</code> and investigate unexpected listeners/PIDs.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-fw4">
+      <div class="task-text">Do not create source-IP blocks or scoring-engine-only rules; the packet requires public services to remain available from all source IPs.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Shares / Permissions</h2><div class="task" data-id="w-share1">
+      <div class="task-text">Review shares with <code>fsmgmt.msc</code>, <code>net share</code>, or <code>Get-SmbShare</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-share2">
+      <div class="task-text">Check Everyone/Guest access and NTFS permissions.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-share3">
+      <div class="task-text">Disable SMBv1 where compatible and safe.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Persistence</h2><div class="task" data-id="w-pers1">
+      <div class="task-text">Review <code>taskschd.msc</code> for suspicious scheduled tasks.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-pers2">
+      <div class="task-text">Check Run/RunOnce keys and Startup folders.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-pers3">
+      <div class="task-text">Review suspicious services, PowerShell profiles, and Winlogon persistence.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Remote Access</h2><div class="task" data-id="w-remote1">
+      <div class="task-text">Review RDP; require NLA if RDP is needed.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-remote2">
+      <div class="task-text">Review Remote Desktop Users and firewall exposure.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-remote3">
+      <div class="task-text">Check WinRM and third-party remote-access software.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Defender / Logging</h2><div class="task" data-id="w-def1">
+      <div class="task-text">Verify Defender and real-time protection with <code>Get-MpComputerStatus</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-def2">
+      <div class="task-text">Review Defender exclusions for suspicious paths/processes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-log1">
+      <div class="task-text">Review Security/System/Application/PowerShell logs in <code>eventvwr.msc</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-log2">
+      <div class="task-text">Do not disable the preconfigured Splunk forwarding to the Black Team indexer.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Role-Specific / Final</h2><div class="task" data-id="w-role1">
+      <div class="task-text">If IIS is scored, inspect sites, app pools, web root, logs, and authentication.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-role2">
+      <div class="task-text">If AD/DC, review privileged groups, suspicious users, GPOs, DNS, and service accounts.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="w-final1">
+      <div class="task-text">Verify required content/authentication still works after hardening—not just that the service process is running.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section>
+</div><script src="script.js"></script></body></html>

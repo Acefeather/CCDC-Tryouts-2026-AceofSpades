@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emergency Rollback Runbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+<nav>
+<a href="index.html">Command Center</a>
+<a href="windows.html">Big Cheesey</a>
+<a href="ubuntu.html">Big Steezy</a>
+<a href="splunk.html">Big Sludge</a>
+<a href="vyos.html">Big Bedrock</a>
+<a href="toolbox.html">Toolbox</a>
+</nav>
+
+<div class="hero">
+<h1>🚑 Emergency Rollback Runbook</h1>
+<p>Fast recovery steps for common CCDC mistakes and service outages.</p>
+</div>
+
+<div class="quick-note rollback-caution">
+<strong>Use this before requesting a full device revert.</strong>
+Try to undo the most recent change first, verify the scored service, and only escalate to a full revert if recovery is no longer practical.
+</div>
+
+<section class="section">
+<h2>First 60 Seconds — Any Host</h2>
+
+<div class="rollback-card rollback-safe">
+<h3>1. Confirm what actually broke</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Check</div><div>Is the service process down, is the port closed, is authentication failing, or is the content wrong?</div></div>
+<div class="rollback-step"><div class="rollback-label">Compare</div><div>Look at your most recent Change Log entry and undo the latest relevant change first.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Test the service itself after every rollback instead of making several changes at once.</div></div>
+</div>
+</div>
+
+<div class="rollback-card rollback-caution">
+<h3>2. Check dependencies before restarting everything</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Examples</div><div>HTTP may depend on DNS or a database; AD depends heavily on DNS; authentication-based scoring may depend on specific user credentials.</div></div>
+<div class="rollback-step"><div class="rollback-label">Rule</div><div>Do not reboot the whole machine just because one service failed unless you have exhausted targeted recovery.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>🧀 Windows — Big Cheesey Rollback</h2>
+
+<div class="rollback-card">
+<h3>Service stopped or disabled accidentally</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Inspect</div><div><code>Win + R → services.msc</code><br>Find the affected service and check Status + Startup Type.</div></div>
+<div class="rollback-step"><div class="rollback-label">Start</div><div><pre>Start-Service &lt;ServiceName&gt;</pre>or use Services → right-click → Start.</div></div>
+<div class="rollback-step"><div class="rollback-label">Restore startup</div><div>If you changed Startup Type, return it to the value you recorded before hardening. In PowerShell:<pre>Set-Service -Name &lt;ServiceName&gt; -StartupType Automatic</pre>Use only if you know Automatic was the prior state.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div><pre>Get-Service &lt;ServiceName&gt;
+netstat -ano</pre>Then test the actual scored service.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>Firewall change blocked a required service</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Inspect</div><div><code>Win + R → wf.msc</code> → Inbound Rules / Outbound Rules. Sort or filter by recently changed rules.</div></div>
+<div class="rollback-step"><div class="rollback-label">Rollback</div><div>Re-enable the previous allow rule or disable the rule you just created. Prefer reversing only your specific change.</div></div>
+<div class="rollback-step"><div class="rollback-label">Profiles</div><div>Confirm the applicable firewall profile itself was not disabled or misconfigured.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div><pre>Get-NetFirewallProfile
+Get-NetTCPConnection -State Listen</pre>Then externally test the service.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>Password change broke scoring or a dependent service</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">First</div><div>Confirm whether the issue is authentication rather than service availability.</div></div>
+<div class="rollback-step"><div class="rollback-label">Scoring</div><div>If you intentionally changed a required scoring user's password, make sure the Password Change Request was submitted in Quotient.</div></div>
+<div class="rollback-step"><div class="rollback-label">Service account</div><div>If a Windows service uses that account, update its logon credentials through <code>services.msc</code> only if you know the service dependency.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Test login/authentication using the expected account and then re-test the scored service.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>RDP stopped working</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Check service</div><div><pre>Get-Service TermService</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Check access</div><div>Review <code>SystemPropertiesRemote</code>, Remote Desktop Users, and RDP firewall rules.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Confirm TCP 3389 is listening if RDP is expected, then test an authorized account.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>DNS / AD authentication suddenly fails</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Check services</div><div>Verify DNS Server and Active Directory-related services are running.</div></div>
+<div class="rollback-step"><div class="rollback-label">Check DNS</div><div><pre>ipconfig /all
+nslookup &lt;domain-or-host&gt;</pre>Undo any recent DNS/IP changes before changing AD itself.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Test name resolution and then LDAP/domain authentication.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>IIS / HTTP stopped serving expected content</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Check IIS</div><div><code>Win + R → inetmgr</code> and verify the site + application pool are started.</div></div>
+<div class="rollback-step"><div class="rollback-label">Restart only IIS</div><div><pre>iisreset</pre>Use this only when IIS is confirmed to be the affected service.</div></div>
+<div class="rollback-step"><div class="rollback-label">Content</div><div>If the scoring page content changed, restore the original web files/config instead of replacing the service with a dummy response.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Request the expected page and confirm the actual content is correct.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>😎 Ubuntu — Big Steezy Rollback</h2>
+
+<div class="rollback-card">
+<h3>Service stopped or disabled accidentally</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Inspect</div><div><pre>systemctl status &lt;service&gt;</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Start</div><div><pre>sudo systemctl start &lt;service&gt;</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Re-enable</div><div>If you disabled startup and know it should be enabled:<pre>sudo systemctl enable &lt;service&gt;</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div><pre>sudo ss -tulpn
+systemctl status &lt;service&gt;</pre>Then test the service externally.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>Bad config edit broke a service</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Best rollback</div><div>Restore the backup copy you made before editing.</div></div>
+<div class="rollback-step"><div class="rollback-label">Example</div><div><pre>sudo cp /etc/ssh/sshd_config.bak /etc/ssh/sshd_config</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Validate first</div><div>Use the service's syntax check before restarting whenever possible.</div></div>
+<div class="rollback-step"><div class="rollback-label">Then reload</div><div><pre>sudo systemctl reload &lt;service&gt;</pre>Prefer reload over restart when the service supports it.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>SSH stopped working after hardening</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Do not close</div><div>Keep your current working SSH session open while fixing SSH.</div></div>
+<div class="rollback-step"><div class="rollback-label">Validate</div><div><pre>sudo sshd -t</pre>If this reports an error, fix or restore the config before restarting.</div></div>
+<div class="rollback-step"><div class="rollback-label">Restore</div><div>Restore your known-good <code>sshd_config</code> backup if needed.</div></div>
+<div class="rollback-step"><div class="rollback-label">Reload</div><div><pre>sudo systemctl reload ssh</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Open a second SSH session before closing the original one.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>UFW blocked a scored service</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Inspect</div><div><pre>sudo ufw status numbered</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Rollback rule</div><div>Delete only the rule you just added if it caused the outage:<pre>sudo ufw delete &lt;rule-number&gt;</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Restore allow</div><div>If a required service needs an allow rule, restore the specific port/service rule rather than disabling UFW entirely.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div><pre>sudo ufw status verbose
+sudo ss -tulpn</pre></div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>Apache / Nginx stopped working</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Apache syntax</div><div><pre>sudo apache2ctl configtest</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Nginx syntax</div><div><pre>sudo nginx -t</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Restore config</div><div>Restore the known-good site/config file if the test fails.</div></div>
+<div class="rollback-step"><div class="rollback-label">Reload</div><div><pre>sudo systemctl reload apache2
+# or
+sudo systemctl reload nginx</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Request the expected web page and verify its actual content.</div></div>
+</div>
+</div>
+
+<div class="rollback-card">
+<h3>Password / account change broke authentication</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Required users</div><div>Do not delete the required tryout accounts.</div></div>
+<div class="rollback-step"><div class="rollback-label">Unlock</div><div>If you accidentally locked a required account:<pre>sudo passwd -u &lt;username&gt;</pre></div></div>
+<div class="rollback-step"><div class="rollback-label">PCR</div><div>If you intentionally changed a scoring credential, make sure its Password Change Request was submitted.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Test the account against the actual scored service.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>🧱 VyOS — Big Bedrock Rollback</h2>
+
+<div class="rollback-card">
+<h3>Firewall / NAT edit broke public service access</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Stop</div><div>Do not make additional broad firewall changes until you identify the exact rule that changed.</div></div>
+<div class="rollback-step"><div class="rollback-label">Compare</div><div>Use your recorded pre-change configuration or command history to identify the last NAT/firewall edit.</div></div>
+<div class="rollback-step"><div class="rollback-label">Rollback</div><div>Return to configuration mode and remove/reverse only that specific change, then commit.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Confirm routes, 1:1 NAT, and public reachability of the affected scored service.</div></div>
+</div>
+</div>
+
+<div class="rollback-card rollback-danger">
+<h3>Addressing / routing changed accidentally</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Priority</div><div>Restore the competition-assigned addressing and routes exactly. Do not improvise a new topology.</div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Check WAN, LAN, default route, and NAT before troubleshooting individual servers.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>🟫 Splunk — Big Sludge Rollback</h2>
+
+<div class="rollback-card">
+<h3>Your local Splunk search/indexing stops working</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Check service</div><div>Verify Splunk is running on the Rocky host before changing forwarding or inputs.</div></div>
+<div class="rollback-step"><div class="rollback-label">Recent change</div><div>Undo only your latest local Splunk configuration change if it caused the problem.</div></div>
+<div class="rollback-step"><div class="rollback-label">Do not touch</div><div><strong>Do not disable or remove the Black Team-controlled forwarding from Windows or Ubuntu.</strong></div></div>
+<div class="rollback-step"><div class="rollback-label">Verify</div><div>Confirm new Windows/Ubuntu events appear in your local Splunk searches again.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>Common “Undo My Last Change” Checklist</h2>
+
+<div class="rollback-card">
+<h3>Before escalating</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">1</div><div>Identify the last relevant configuration change.</div></div>
+<div class="rollback-step"><div class="rollback-label">2</div><div>Reverse exactly that change.</div></div>
+<div class="rollback-step"><div class="rollback-label">3</div><div>Restart/reload only the affected service if necessary.</div></div>
+<div class="rollback-step"><div class="rollback-label">4</div><div>Confirm the port is listening.</div></div>
+<div class="rollback-step"><div class="rollback-label">5</div><div>Confirm authentication/content, not just process state.</div></div>
+<div class="rollback-step"><div class="rollback-label">6</div><div>Check logs for the actual failure reason.</div></div>
+<div class="rollback-step"><div class="rollback-label">7</div><div>Record the rollback in the Change Log.</div></div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>When a Full Device Revert Is Actually Worth Considering</h2>
+<div class="rollback-card rollback-danger">
+<h3>Last resort</h3>
+<div class="rollback-body">
+<div class="rollback-step"><div class="rollback-label">Consider it when</div><div>You cannot regain administrative access, the service stack is too damaged to repair in reasonable competition time, or compromise is so extensive that targeted recovery is no longer practical.</div></div>
+<div class="rollback-step"><div class="rollback-label">Before requesting</div><div>Capture incident evidence, note what will be lost, and confirm you cannot recover faster manually.</div></div>
+<div class="rollback-step"><div class="rollback-label">Remember</div><div>The tryout packet states that device reverts carry increasing point penalties, so use them strategically rather than reflexively.</div></div>
+</div>
+</div>
+</section>
+
+</div>
+</body>
+</html>

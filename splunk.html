@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Sludge — Splunk</title><link rel="stylesheet" href="style.css"></head>
+<body data-page="splunk"><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a></nav>
+<div class="hero"><h1>Big Sludge — Splunk</h1><p>Fast threat-hunting and evidence workflow for the tryout's Splunk Enterprise box.</p></div>
+<div class="toolbar">
+  <div class="progress-wrap"><div class="progress"><div></div></div><div class="progress-label"></div></div>
+  <button id="reset" class="btn">Reset statuses</button>
+</div>
+<div class="legend"><span><span class="dot green"></span>Done</span><span><span class="dot yellow"></span>Almost Done</span><span><span class="dot red"></span>Return to Complete</span></div>
+<section class="section"><h2>Get Oriented</h2><div class="task" data-id="s-base1">
+      <div class="task-text">Log into Splunk and confirm the indexer is receiving events.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-base2">
+      <div class="task-text">Identify the Windows and Ubuntu hosts/sourcetypes so you can filter quickly.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-base3">
+      <div class="task-text">Record a normal baseline early so later activity has something to compare against.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Fast Searches</h2><div class="task" data-id="s-q1">
+      <div class="task-text">Search by host first: <code>host=&lt;hostname&gt;</code>.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-q2">
+      <div class="task-text">Filter authentication activity, failed logins, sudo/SSH events, and Windows logon events.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-q3">
+      <div class="task-text">Look for unusual process creation, new services, scheduled tasks, account changes, and privilege changes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-q4">
+      <div class="task-text">Look for spikes in errors or events immediately before/after a scored service fails.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Windows Threat Hunting</h2><div class="task" data-id="s-win1">
+      <div class="task-text">Review failed/successful logons and unexpected source addresses.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-win2">
+      <div class="task-text">Look for new users or changes to privileged groups.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-win3">
+      <div class="task-text">Look for service creation, scheduled tasks, PowerShell activity, and Defender events.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Linux Threat Hunting</h2><div class="task" data-id="s-lin1">
+      <div class="task-text">Review SSH logins, failed authentication, sudo usage, and account changes.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-lin2">
+      <div class="task-text">Correlate suspicious login times with <code>auth.log</code>/journal activity.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-lin3">
+      <div class="task-text">Look for persistence clues such as cron/systemd activity and unexpected service starts.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Incident Evidence</h2><div class="task" data-id="s-ir1">
+      <div class="task-text">When you find something suspicious, record timestamp, host, user, source IP, process/service, and relevant event details.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-ir2">
+      <div class="task-text">Take screenshots or copy key event details before remediation if useful for the incident report.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-ir3">
+      <div class="task-text">After remediation, verify similar activity stops and note what mitigation you applied.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section><section class="section"><h2>Do Not Break</h2><div class="task" data-id="s-rule1">
+      <div class="task-text">Do not disable the Black Team-controlled Splunk forwarding from Windows or Ubuntu.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div><div class="task" data-id="s-rule2">
+      <div class="task-text">Your own Splunk indexer has no scored service, so use it aggressively for visibility—but avoid unnecessary changes that cost you time.</div>
+      <div class="status">
+        <button class="done-btn">Done</button>
+        <button class="almost-btn">Almost Done</button>
+        <button class="return-btn">Return to Complete</button>
+      </div>
+    </div></section>
+<section class="section"><h2>Fast References</h2>
+    <div style="padding:14px">
+      <a class="link-card" href="toolbox.html"><strong>Open Full Splunk Query Library</strong><br><span style="color:var(--muted)">Copy/paste Windows and Linux searches.</span></a>
+      <a class="link-card" href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/" target="_blank" rel="noopener"><strong>Windows Security Log Encyclopedia</strong><br><span style="color:var(--muted)">Look up Windows Event IDs.</span></a>
+    </div></section></div><script src="script.js"></script></body></html>

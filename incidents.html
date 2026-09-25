@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Incident Notebook</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+<nav><a href="index.html">Command Center</a><a href="windows.html">Big Cheesey</a><a href="ubuntu.html">Big Steezy</a><a href="splunk.html">Big Sludge</a><a href="vyos.html">Big Bedrock</a><a href="toolbox.html">Toolbox</a></nav>
+<div class="hero"><h1>Incident Notebook</h1><p>Capture evidence while it is fresh so the end-of-day incident response work is much easier.</p></div>
+
+<div class="card">
+<h2>Add Incident</h2>
+<div class="form-grid">
+<div class="field"><label>Time</label><input id="time"></div>
+<div class="field"><label>Host</label><input id="host"></div>
+<div class="field"><label>User</label><input id="user"></div>
+<div class="field"><label>Source IP</label><input id="ip"></div>
+</div>
+<div class="field"><label>Evidence / What Happened</label><textarea id="evidence"></textarea></div>
+<div class="field"><label>Response / Recovery</label><textarea id="response"></textarea></div>
+<div class="field"><label>Mitigation / How to Prevent Recurrence</label><textarea id="mitigation"></textarea></div>
+<button class="btn" id="add">Add Incident</button>
+</div>
+<div id="entries"></div>
+</div><script src="data.js"></script><script>
+const name="incidents";
+function render(){const a=load(name);entries.innerHTML=a.map((x,i)=>`<div class="entry"><div class="entry-head"><h3>${esc(x.host||"Incident")}</h3><small>${esc(x.time)}</small></div><p><span class="badge">User: ${esc(x.user)}</span><span class="badge">Source: ${esc(x.ip)}</span></p><p><b>Evidence:</b> ${esc(x.evidence).replace(/\n/g,"<br>")}</p><p><b>Response:</b> ${esc(x.response).replace(/\n/g,"<br>")}</p><p><b>Mitigation:</b> ${esc(x.mitigation).replace(/\n/g,"<br>")}</p><button class="small-btn danger" onclick="del(${i})">Delete</button></div>`).join("")}
+function del(i){const a=load(name);a.splice(i,1);save(name,a);render()}
+add.onclick=()=>{const a=load(name);a.push({time:time.value,host:host.value,user:user.value,ip:ip.value,evidence:evidence.value,response:response.value,mitigation:mitigation.value});save(name,a);render();}
+render();
+</script></body></html>
