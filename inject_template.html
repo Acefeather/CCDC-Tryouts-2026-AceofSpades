@@ -1,47 +1,86 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Inject Memo Template</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+<title>Inject Memo Builder</title><link rel="stylesheet" href="report_builder.css"></head>
+<body><div class="container">
 <nav><a href="index.html">Command Center</a><a href="toolbox.html">Toolbox</a></nav>
-<div class="hero"><h1>Inject Memo Template</h1><p>Blank professional structure based on the team packet's example.</p></div>
-<div class="quick-note note-warn"><strong>Important:</strong> the competition rules prohibit AI from writing or editing inject responses. This is only a blank formatting template.</div>
-<div class="template-box">INTEROFFICE MEMORANDUM
+<div class="hero"><h1>Inject Memo Builder</h1><p>Enter your own response, add screenshots, preview the memo, then save it as a PDF.</p></div>
+<div class="notice"><strong>Important:</strong> this page does not generate or rewrite inject content. It only formats what you enter.</div>
 
-To: Management
-From: Team ##
-Date: __________
-Subject: [Inject Name] [Inject ID]
+<div class="panel"><h2>Memo details</h2><div class="grid">
+<div class="field"><label>Team number</label><input id="team" placeholder="Team ##"></div>
+<div class="field"><label>Date</label><input id="date"></div>
+<div class="field"><label>Inject name</label><input id="injectName"></div>
+<div class="field"><label>Inject ID / number</label><input id="injectId"></div>
+<div class="field"><label>To</label><input id="to" value="Management"></div>
+</div><div class="field"><label>Purpose / introduction</label><textarea id="purpose"></textarea></div></div>
 
-PURPOSE
-[State the purpose of the memo.]
+<div class="panel"><h2>Requirements</h2><div id="requirements"></div>
+<button type="button" class="btn" onclick="addRequirement()">+ Add requirement</button></div>
 
-1. REQUIREMENT ONE
-[Your response.]
+<div class="panel"><h2>Implementation / Results</h2>
+<div class="field"><textarea id="results"></textarea></div></div>
 
-2. REQUIREMENT TWO
-[Your response.]
+<div class="panel"><h2>Screenshots / Evidence</h2><div id="screenshots"></div>
+<button type="button" class="btn" onclick="addScreenshotRow()">+ Add screenshot</button></div>
 
-3. REQUIREMENT THREE
-[Your response.]
+<div class="panel"><h2>Final check</h2>
+<div>☐ Answered every requested part</div>
+<div>☐ Used team number, not personal name</div>
+<div>☐ Screenshots are captioned</div>
+<div>☐ Tables/figures are labeled if used</div>
+<div>☐ Grammar/spelling checked manually</div>
+<div>☐ Understandable to a nontechnical audience</div>
+<div>☐ Filename follows <code>team##_inject##.pdf</code></div>
+<div>☐ Submitted before deadline</div>
+</div>
 
-IMPLEMENTATION / RESULTS
-[Explain what was implemented and the result.]
+<div class="toolbar">
+<button class="btn primary" onclick="printPDF()">Generate PDF</button>
+<button class="btn" onclick="buildPreview()">Refresh Preview</button>
+<button class="btn danger" onclick="clearForm()">Clear</button>
+</div>
 
-SUPPORTING EVIDENCE
-
-Figure 1: ______________________________
-
-Figure 2: ______________________________
-
-
-FINAL CHECKLIST
-
-☐ Answered every requested part
-☐ Used team number, not personal name
-☐ Screenshots centered
-☐ Screenshots labeled
-☐ Tables labeled
-☐ Consistent font and formatting
-☐ Grammar/spelling checked
-☐ Understandable to a nontechnical audience
-☐ Filename follows team##_inject##.pdf
-☐ Submitted before the deadline</div>
-</div></body></html>
+<h2 class="preview-title">Preview</h2><div class="preview-shell"><div id="preview" class="report-page"></div></div>
+</div>
+<script src="report_builder.js"></script>
+<script>
+let requirementCounter=0;
+function addRequirement(title="",response=""){
+  const idx=++requirementCounter;
+  const row=document.createElement("div");row.className="req-row";
+  row.innerHTML=`
+    <div class="field"><label>Requirement / heading</label><input class="req-title" placeholder="Requirement ${idx}"></div>
+    <div class="field"><label>Your response</label><textarea class="req-response"></textarea></div>
+    <button type="button" class="btn danger remove-req">Remove requirement</button>`;
+  el("requirements").appendChild(row);
+  row.querySelector(".req-title").value=title;
+  row.querySelector(".req-response").value=response;
+  row.querySelectorAll("input,textarea").forEach(x=>x.addEventListener("input",buildPreview));
+  row.querySelector(".remove-req").onclick=()=>{row.remove();buildPreview();};
+  buildPreview();
+}
+function resetRequirements(){el("requirements").innerHTML="";requirementCounter=0;addRequirement();}
+function getRequirements(){
+  return [...document.querySelectorAll(".req-row")].map((r,i)=>({
+    title:safe(r.querySelector(".req-title").value)||`Requirement ${i+1}`,
+    response:r.querySelector(".req-response").value||""
+  }));
+}
+function buildPreview(){
+  const reqs=getRequirements().map((r,i)=>`
+    <div class="requirement"><div class="requirement-title">${i+1}. ${escapeHTML(r.title)}</div><p>${nl(r.response)}</p></div>`).join("");
+  const subject=[safe(el("injectName").value),safe(el("injectId").value)].filter(Boolean).join(" — ");
+  el("preview").innerHTML=`
+    <h1>INTEROFFICE MEMORANDUM</h1>
+    <table class="memo-meta">
+      <tr><td>To:</td><td>${escapeHTML(textOrBlank(el("to").value))}</td></tr>
+      <tr><td>From:</td><td>${escapeHTML(textOrBlank(el("team").value))}</td></tr>
+      <tr><td>Date:</td><td>${escapeHTML(textOrBlank(el("date").value))}</td></tr>
+      <tr><td>Subject:</td><td>${escapeHTML(subject||" ")}</td></tr>
+    </table>
+    <p>${nl(el("purpose").value)}</p>
+    ${reqs}
+    ${safe(el("results").value)?`<h2>Implementation / Results</h2><p>${nl(el("results").value)}</p>`:""}
+    ${getScreenshots().length?"<h2>Supporting Evidence</h2>"+screenshotHTML():""}`;
+}
+wireInputs();resetRequirements();addScreenshotRow();buildPreview();
+</script></body></html>

@@ -1,35 +1,55 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Incident Report Template</title><link rel="stylesheet" href="style.css"></head><body><div class="container">
+<title>Incident Report Builder</title><link rel="stylesheet" href="report_builder.css"></head>
+<body><div class="container">
 <nav><a href="index.html">Command Center</a><a href="toolbox.html">Toolbox</a></nav>
-<div class="hero"><h1>Incident Response Report Template</h1><p>Blank structure only — fill this out yourself during the competition.</p></div>
-<div class="quick-note note-warn">Use your assigned team number, preserve evidence, and document identification, recovery, and mitigation.</div>
-<div class="template-box">INCIDENT RESPONSE REPORT
+<div class="hero"><h1>Incident Response Report Builder</h1><p>Enter your findings, attach evidence, preview the report, then save it as a PDF.</p></div>
+<div class="notice"><strong>Competition-safe:</strong> this page only formats text and screenshots that you provide.</div>
 
-Team: Team ##
-Incident #: __________
-Date/Time Detected: __________
-Affected System(s): __________
+<div class="panel"><h2>Report details</h2><div class="grid">
+<div class="field"><label>Team number</label><input id="team" placeholder="Team ##"></div>
+<div class="field"><label>Incident number</label><input id="incident" placeholder="Incident 1"></div>
+<div class="field"><label>Date / time detected</label><input id="detected"></div>
+<div class="field"><label>Affected system(s)</label><input id="systems"></div>
+</div></div>
 
-SUMMARY
-[Briefly describe what happened.]
+<div class="panel"><h2>Incident content</h2>
+<div class="field"><label>Summary</label><textarea id="summary"></textarea></div>
+<div class="field"><label>Indicators / Evidence</label><textarea id="evidence" placeholder="Timestamps, Event IDs, IPs, usernames, processes, files, log findings..."></textarea></div>
+<div class="field"><label>Actions Taken</label><textarea id="actions"></textarea></div>
+<div class="field"><label>Service Recovery</label><textarea id="recovery"></textarea></div>
+<div class="field"><label>Root Cause / Attack Vector</label><textarea id="rootcause"></textarea></div>
+<div class="field"><label>Mitigation</label><textarea id="mitigation"></textarea></div>
+</div>
 
-INDICATORS / EVIDENCE
-[Relevant timestamps, event IDs, IPs, usernames, processes, files, logs, screenshots.]
+<div class="panel"><h2>Screenshots / Evidence</h2><div id="screenshots"></div>
+<button type="button" class="btn" onclick="addScreenshotRow()">+ Add screenshot</button></div>
 
-ACTIONS TAKEN
-[What you did to contain or investigate the activity.]
+<div class="toolbar">
+<button class="btn primary" onclick="printPDF()">Generate PDF</button>
+<button class="btn" onclick="buildPreview()">Refresh Preview</button>
+<button class="btn danger" onclick="clearForm()">Clear</button>
+</div>
 
-SERVICE RECOVERY
-[How affected systems/services were restored and verified.]
-
-ROOT CAUSE / ATTACK VECTOR
-[What allowed the incident to occur, if known.]
-
-MITIGATION
-[What you changed to reduce the chance of recurrence.]
-
-SUPPORTING EVIDENCE
-Figure 1: ______________________________
-Figure 2: ______________________________
-Additional evidence: ___________________</div>
-</div></body></html>
+<h2 class="preview-title">Preview</h2><div class="preview-shell"><div id="preview" class="report-page"></div></div>
+</div>
+<script src="report_builder.js"></script>
+<script>
+function buildPreview(){
+  const title=`Incident Response Report${safe(el("incident").value)?" — "+escapeHTML(el("incident").value):""}`;
+  el("preview").innerHTML=`
+    <h1>${title}</h1>
+    <table class="memo-meta">
+      <tr><td>Team:</td><td>${escapeHTML(textOrBlank(el("team").value))}</td></tr>
+      <tr><td>Detected:</td><td>${escapeHTML(textOrBlank(el("detected").value))}</td></tr>
+      <tr><td>Systems:</td><td>${escapeHTML(textOrBlank(el("systems").value))}</td></tr>
+    </table>
+    <h2>Summary</h2><p>${nl(el("summary").value)}</p>
+    <h2>Indicators / Evidence</h2><p>${nl(el("evidence").value)}</p>
+    <h2>Actions Taken</h2><p>${nl(el("actions").value)}</p>
+    <h2>Service Recovery</h2><p>${nl(el("recovery").value)}</p>
+    <h2>Root Cause / Attack Vector</h2><p>${nl(el("rootcause").value)}</p>
+    <h2>Mitigation</h2><p>${nl(el("mitigation").value)}</p>
+    ${getScreenshots().length?"<h2>Supporting Evidence</h2>"+screenshotHTML():""}`;
+}
+wireInputs();addScreenshotRow();buildPreview();
+</script></body></html>
