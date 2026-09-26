@@ -1,77 +1,116 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Inject Memo Builder</title>
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    >
 
-    <link rel="stylesheet" href="report_builder.css">
+    <title>
+        Incident Report Builder
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="report_builder.css"
+    >
+
 
     <style>
-        .checklist {
-            display: grid;
-            gap: 8px;
-            margin-top: 10px;
+
+        /*
+            Tighter report header formatting.
+
+            This overrides the shared report_builder.css
+            so labels such as "Team:" don't have a large
+            awkward gap before the entered value.
+        */
+
+        .memo-meta {
+            border-collapse: collapse;
+            margin-bottom: 14px;
+            width: auto;
         }
 
-        .check-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
 
-            padding: 10px 12px;
-
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-
-            cursor: pointer;
+        .memo-meta td {
+            padding: 3px 10px 3px 0;
+            vertical-align: top;
         }
 
-        .check-item:hover {
-            border-color: var(--accent);
+
+        .memo-meta td:first-child {
+            font-weight: bold;
+            white-space: nowrap;
+            width: auto;
         }
 
-        .check-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
 
-            cursor: pointer;
-            accent-color: #22c55e;
+        .report-page h1 {
+            font-size: 15pt;
+            text-align: center;
+            margin: 0 0 12px;
         }
 
-        .check-item.checked {
-            background: rgba(22, 101, 52, 0.25);
-            border-color: #22c55e;
+
+        .report-page h2 {
+            font-size: 11.5pt;
+            text-transform: uppercase;
+
+            margin:
+                13px
+                0
+                5px;
+
+            border-bottom:
+                1px solid #bbb;
+
+            padding-bottom: 2px;
         }
 
-        .check-progress {
-            margin-top: 12px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
     </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+    <!-- NAVIGATION -->
+
     <nav>
-        <a href="index.html">Command Center</a>
-        <a href="toolbox.html">Toolbox</a>
+
+        <a href="index.html">
+            Command Center
+        </a>
+
+        <a href="toolbox.html">
+            Toolbox
+        </a>
+
     </nav>
 
 
+    <!-- PAGE HEADER -->
+
     <div class="hero">
 
-        <h1>Inject Memo Builder</h1>
+        <h1>
+            Incident Response Report Builder
+        </h1>
 
         <p>
-            Enter your own response, add screenshots,
-            preview the memo, then save it as a PDF.
+            Enter your findings,
+            attach evidence,
+            preview the report,
+            then save it as a PDF.
         </p>
 
     </div>
@@ -79,25 +118,34 @@
 
     <div class="notice">
 
-        <strong>Important:</strong>
+        <strong>
+            Competition-safe:
+        </strong>
 
-        This page does not generate or rewrite inject content.
-        It only formats what you enter.
+        This page only formats
+        text and screenshots
+        that you provide.
 
     </div>
 
 
-    <!-- MEMO DETAILS -->
+    <!-- REPORT DETAILS -->
 
     <div class="panel">
 
-        <h2>Memo details</h2>
+        <h2>
+            Report Details
+        </h2>
+
 
         <div class="grid">
 
+
             <div class="field">
 
-                <label>Team number</label>
+                <label>
+                    Team number
+                </label>
 
                 <input
                     id="team"
@@ -109,10 +157,13 @@
 
             <div class="field">
 
-                <label>Date</label>
+                <label>
+                    Incident number
+                </label>
 
                 <input
-                    id="date"
+                    id="incident"
+                    placeholder="Incident 1"
                 >
 
             </div>
@@ -120,10 +171,13 @@
 
             <div class="field">
 
-                <label>Inject name</label>
+                <label>
+                    Date / time detected
+                </label>
 
                 <input
-                    id="injectName"
+                    id="detected"
+                    placeholder="September 26, 2026 11:42 AM"
                 >
 
             </div>
@@ -131,68 +185,112 @@
 
             <div class="field">
 
-                <label>Inject ID / number</label>
+                <label>
+                    Affected system(s)
+                </label>
 
                 <input
-                    id="injectId"
+                    id="systems"
+                    placeholder="lapis, iron"
                 >
 
             </div>
 
-
-            <div class="field">
-
-                <label>To</label>
-
-                <input
-                    id="to"
-                    value="Management"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="field">
-
-            <label>Purpose / introduction</label>
-
-            <textarea id="purpose"></textarea>
 
         </div>
 
     </div>
 
 
-    <!-- REQUIREMENTS -->
+    <!-- INCIDENT CONTENT -->
 
     <div class="panel">
 
-        <h2>Requirements</h2>
+        <h2>
+            Incident Content
+        </h2>
 
-        <div id="requirements"></div>
-
-        <button
-            type="button"
-            class="btn"
-            onclick="addRequirement()"
-        >
-            + Add requirement
-        </button>
-
-    </div>
-
-
-    <!-- RESULTS -->
-
-    <div class="panel">
-
-        <h2>Implementation / Results</h2>
 
         <div class="field">
 
-            <textarea id="results"></textarea>
+            <label>
+                Summary
+            </label>
+
+            <textarea
+                id="summary"
+                placeholder="Briefly describe what happened."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Indicators / Evidence
+            </label>
+
+            <textarea
+                id="evidence"
+                placeholder="Timestamps, Event IDs, IPs, usernames, processes, files, log findings..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Actions Taken
+            </label>
+
+            <textarea
+                id="actions"
+                placeholder="Describe what you did to investigate or contain the incident."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Service Recovery
+            </label>
+
+            <textarea
+                id="recovery"
+                placeholder="Describe how affected services were restored and verified."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Root Cause / Attack Vector
+            </label>
+
+            <textarea
+                id="rootcause"
+                placeholder="Describe how the incident occurred, if known."
+            ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Mitigation
+            </label>
+
+            <textarea
+                id="mitigation"
+                placeholder="Describe what was changed to reduce the chance of recurrence."
+            ></textarea>
 
         </div>
 
@@ -203,159 +301,32 @@
 
     <div class="panel">
 
-        <h2>Screenshots / Evidence</h2>
+        <h2>
+            Screenshots / Evidence
+        </h2>
+
+
+        <p style="color: var(--muted);">
+
+            Upload screenshots and provide
+            a caption for each.
+
+            They will automatically be centered
+            and numbered in the report.
+
+        </p>
+
 
         <div id="screenshots"></div>
+
 
         <button
             type="button"
             class="btn"
             onclick="addScreenshotRow()"
         >
-            + Add screenshot
+            + Add Screenshot
         </button>
-
-    </div>
-
-
-    <!-- FUNCTIONAL CHECKLIST -->
-
-    <div class="panel">
-
-        <h2>Final Check</h2>
-
-        <div class="checklist">
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkRequirements"
-                >
-
-                <span>
-                    Answered every requested part
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkTeamNumber"
-                >
-
-                <span>
-                    Used team number, not personal name
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkScreenshots"
-                >
-
-                <span>
-                    Screenshots are captioned
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkFigures"
-                >
-
-                <span>
-                    Tables / figures are labeled if used
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkGrammar"
-                >
-
-                <span>
-                    Grammar and spelling checked manually
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkAudience"
-                >
-
-                <span>
-                    Understandable to a nontechnical audience
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkFilename"
-                >
-
-                <span>
-                    Filename follows
-                    <code>team##_inject##.pdf</code>
-                </span>
-
-            </label>
-
-
-            <label class="check-item">
-
-                <input
-                    type="checkbox"
-                    class="final-check"
-                    id="checkDeadline"
-                >
-
-                <span>
-                    Ready to submit before the deadline
-                </span>
-
-            </label>
-
-        </div>
-
-
-        <div
-            id="checkProgress"
-            class="check-progress"
-        >
-            0 / 8 complete
-        </div>
 
     </div>
 
@@ -363,6 +334,7 @@
     <!-- ACTION BUTTONS -->
 
     <div class="toolbar">
+
 
         <button
             class="btn primary"
@@ -382,10 +354,11 @@
 
         <button
             class="btn danger"
-            onclick="clearInjectForm()"
+            onclick="clearForm()"
         >
             Clear
         </button>
+
 
     </div>
 
@@ -406,429 +379,70 @@
 
     </div>
 
+
 </div>
 
+
+<!-- SHARED REPORT FUNCTIONS -->
 
 <script src="report_builder.js"></script>
 
 
 <script>
 
-/* =========================================================
-   REQUIREMENTS
-   ========================================================= */
-
-let requirementCounter = 0;
-
-
-function addRequirement(title = "", response = "") {
-
-    const idx = ++requirementCounter;
-
-    const row = document.createElement("div");
-
-    row.className = "req-row";
-
-
-    row.innerHTML = `
-
-        <div class="field">
-
-            <label>
-                Requirement / heading
-            </label>
-
-            <input
-                class="req-title"
-                placeholder="Requirement ${idx}"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Your response
-            </label>
-
-            <textarea
-                class="req-response"
-            ></textarea>
-
-        </div>
-
-
-        <button
-            type="button"
-            class="btn danger remove-req"
-        >
-            Remove requirement
-        </button>
-
-    `;
-
-
-    el("requirements").appendChild(row);
-
-
-    row.querySelector(".req-title").value = title;
-
-    row.querySelector(".req-response").value = response;
-
-
-    row
-        .querySelectorAll("input,textarea")
-        .forEach(input => {
-
-            input.addEventListener(
-                "input",
-                buildPreview
-            );
-
-        });
-
-
-    row.querySelector(".remove-req").onclick = () => {
-
-        row.remove();
-
-        buildPreview();
-
-    };
-
-
-    buildPreview();
-
-}
-
-
-
-function resetRequirements() {
-
-    el("requirements").innerHTML = "";
-
-    requirementCounter = 0;
-
-    addRequirement();
-
-}
-
-
-
-function getRequirements() {
-
-    return [
-        ...document.querySelectorAll(".req-row")
-    ].map((row, index) => ({
-
-        title:
-            safe(
-                row.querySelector(".req-title").value
-            )
-            ||
-            `Requirement ${index + 1}`,
-
-        response:
-            row.querySelector(".req-response").value
-            ||
-            ""
-
-    }));
-
-}
-
 
 /* =========================================================
-   FUNCTIONAL FINAL CHECKLIST
-   ========================================================= */
-
-const checklistStorageKey =
-    "ccdc:inject-final-checklist";
-
-
-function getChecklistItems() {
-
-    return [
-        ...document.querySelectorAll(".final-check")
-    ];
-
-}
-
-
-
-function updateChecklist() {
-
-    const items = getChecklistItems();
-
-    let completed = 0;
-
-
-    items.forEach(item => {
-
-        const row =
-            item.closest(".check-item");
-
-
-        if (item.checked) {
-
-            completed++;
-
-            row.classList.add("checked");
-
-        }
-
-        else {
-
-            row.classList.remove("checked");
-
-        }
-
-    });
-
-
-    el("checkProgress").textContent =
-        `${completed} / ${items.length} complete`;
-
-
-    saveChecklist();
-
-}
-
-
-
-function saveChecklist() {
-
-    const state = {};
-
-
-    getChecklistItems().forEach(item => {
-
-        state[item.id] =
-            item.checked;
-
-    });
-
-
-    localStorage.setItem(
-        checklistStorageKey,
-        JSON.stringify(state)
-    );
-
-}
-
-
-
-function loadChecklist() {
-
-    const saved =
-        localStorage.getItem(
-            checklistStorageKey
-        );
-
-
-    if (!saved) {
-
-        updateChecklist();
-
-        return;
-
-    }
-
-
-    try {
-
-        const state =
-            JSON.parse(saved);
-
-
-        getChecklistItems().forEach(item => {
-
-            item.checked =
-                state[item.id]
-                ||
-                false;
-
-        });
-
-    }
-
-    catch {
-
-        /* Ignore malformed saved data */
-
-    }
-
-
-    updateChecklist();
-
-}
-
-
-
-function resetChecklist() {
-
-    getChecklistItems().forEach(item => {
-
-        item.checked = false;
-
-    });
-
-
-    localStorage.removeItem(
-        checklistStorageKey
-    );
-
-
-    updateChecklist();
-
-}
-
-
-/* =========================================================
-   CLEAR ENTIRE PAGE
-   ========================================================= */
-
-function clearInjectForm() {
-
-    if (
-        !confirm(
-            "Clear all memo fields, screenshots, requirements, and checklist items?"
-        )
-    ) {
-
-        return;
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "input:not([type=file]):not([type=checkbox]), textarea"
-        )
-        .forEach(input => {
-
-            input.value = "";
-
-        });
-
-
-    /*
-        Restore the default recipient after clearing.
-    */
-
-    el("to").value =
-        "Management";
-
-
-    /*
-        Remove uploaded screenshots.
-    */
-
-    el("screenshots").innerHTML =
-        "";
-
-
-    /*
-        Reset requirements.
-    */
-
-    resetRequirements();
-
-
-    /*
-        Reset checklist.
-    */
-
-    resetChecklist();
-
-
-    /*
-        Give the user one fresh screenshot slot.
-    */
-
-    addScreenshotRow();
-
-
-    buildPreview();
-
-}
-
-
-/* =========================================================
-   PDF PREVIEW
+   BUILD INCIDENT REPORT PREVIEW
    ========================================================= */
 
 function buildPreview() {
 
-    const requirements =
-        getRequirements()
-        .map(
-            (requirement, index) => `
 
-                <div class="requirement">
+    /*
+        Add the incident number to the report title
+        if the user entered one.
+    */
 
-                    <div class="requirement-title">
-
-                        ${index + 1}.
-                        ${escapeHTML(requirement.title)}
-
-                    </div>
-
-                    <p>
-                        ${nl(requirement.response)}
-                    </p>
-
-                </div>
-
-            `
-        )
-        .join("");
-
-
-    const subject = [
-
+    const incidentNumber =
         safe(
-            el("injectName").value
-        ),
-
-        safe(
-            el("injectId").value
-        )
-
-    ]
-    .filter(Boolean)
-    .join(" — ");
+            el("incident").value
+        );
 
 
+    const title =
+        incidentNumber
+
+        ?
+
+        `Incident Response Report — ${escapeHTML(
+            incidentNumber
+        )}`
+
+        :
+
+        "Incident Response Report";
+
+
+    /*
+        Generate the formatted report.
+    */
 
     el("preview").innerHTML = `
 
+
         <h1>
-            INTEROFFICE MEMORANDUM
+            ${title}
         </h1>
 
 
         <table class="memo-meta">
 
-            <tr>
 
-                <td>To:</td>
+            <tr>
 
                 <td>
-                    ${escapeHTML(
-                        textOrBlank(
-                            el("to").value
-                        )
-                    )}
+                    Team:
                 </td>
-
-            </tr>
-
-
-            <tr>
-
-                <td>From:</td>
 
                 <td>
                     ${escapeHTML(
@@ -843,12 +457,14 @@ function buildPreview() {
 
             <tr>
 
-                <td>Date:</td>
+                <td>
+                    Detected:
+                </td>
 
                 <td>
                     ${escapeHTML(
                         textOrBlank(
-                            el("date").value
+                            el("detected").value
                         )
                     )}
                 </td>
@@ -858,55 +474,95 @@ function buildPreview() {
 
             <tr>
 
-                <td>Subject:</td>
+                <td>
+                    Systems:
+                </td>
 
                 <td>
                     ${escapeHTML(
-                        subject || " "
+                        textOrBlank(
+                            el("systems").value
+                        )
                     )}
                 </td>
 
             </tr>
 
+
         </table>
 
 
+
+        <h2>
+            Summary
+        </h2>
+
         <p>
             ${nl(
-                el("purpose").value
+                el("summary").value
             )}
         </p>
 
 
-        ${requirements}
+
+        <h2>
+            Indicators / Evidence
+        </h2>
+
+        <p>
+            ${nl(
+                el("evidence").value
+            )}
+        </p>
 
 
-        ${
-            safe(
-                el("results").value
-            )
 
-            ?
+        <h2>
+            Actions Taken
+        </h2>
 
-            `
+        <p>
+            ${nl(
+                el("actions").value
+            )}
+        </p>
 
-            <h2>
-                Implementation / Results
-            </h2>
 
-            <p>
-                ${nl(
-                    el("results").value
-                )}
-            </p>
 
-            `
+        <h2>
+            Service Recovery
+        </h2>
 
-            :
+        <p>
+            ${nl(
+                el("recovery").value
+            )}
+        </p>
 
-            ""
 
-        }
+
+        <h2>
+            Root Cause / Attack Vector
+        </h2>
+
+        <p>
+            ${nl(
+                el("rootcause").value
+            )}
+        </p>
+
+
+
+        <h2>
+            Mitigation
+        </h2>
+
+        <p>
+            ${nl(
+                el("mitigation").value
+            )}
+        </p>
+
 
 
         ${
@@ -930,40 +586,44 @@ function buildPreview() {
 
         }
 
+
     `;
 
 }
 
 
+
 /* =========================================================
-   INITIALIZATION
+   INITIALIZE PAGE
    ========================================================= */
+
+
+/*
+    Automatically rebuild the preview
+    whenever the user types.
+*/
 
 wireInputs();
 
 
-resetRequirements();
-
+/*
+    Give the user one screenshot slot
+    when the page initially loads.
+*/
 
 addScreenshotRow();
 
 
-getChecklistItems().forEach(item => {
-
-    item.addEventListener(
-        "change",
-        updateChecklist
-    );
-
-});
-
-
-loadChecklist();
-
+/*
+    Build initial empty preview.
+*/
 
 buildPreview();
 
+
 </script>
 
+
 </body>
+
 </html>

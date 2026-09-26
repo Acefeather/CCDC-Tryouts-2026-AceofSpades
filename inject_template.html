@@ -1,77 +1,239 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Inject Memo Builder</title>
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    >
 
-    <link rel="stylesheet" href="report_builder.css">
+    <title>
+        Inject Memo Builder
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="report_builder.css"
+    >
+
 
     <style>
-        .checklist {
-            display: grid;
-            gap: 8px;
-            margin-top: 10px;
+
+
+        /*
+            Fix spacing in the generated memo header.
+        */
+
+        .memo-meta {
+            border-collapse: collapse;
+            margin-bottom: 14px;
+            width: auto;
         }
+
+
+        .memo-meta td {
+            padding: 3px 10px 3px 0;
+            vertical-align: top;
+        }
+
+
+        .memo-meta td:first-child {
+            font-weight: bold;
+            white-space: nowrap;
+            width: auto;
+        }
+
+
+        .report-page h1 {
+            font-size: 15pt;
+            text-align: center;
+            margin: 0 0 12px;
+        }
+
+
+        .report-page h2 {
+            font-size: 11.5pt;
+            text-transform: uppercase;
+
+            margin:
+                13px
+                0
+                5px;
+
+            border-bottom:
+                1px solid #bbb;
+
+            padding-bottom: 2px;
+        }
+
+
+
+        /*
+            FUNCTIONAL FINAL CHECKLIST
+        */
+
+        .checklist {
+
+            display: grid;
+
+            gap: 8px;
+
+            margin-top: 10px;
+
+        }
+
 
         .check-item {
+
             display: flex;
+
             align-items: flex-start;
+
             gap: 10px;
 
-            padding: 10px 12px;
 
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding:
 
-            cursor: pointer;
+                10px
+                12px;
+
+
+            background:
+
+                #0f172a;
+
+
+            border:
+
+                1px solid
+                var(--border);
+
+
+            border-radius:
+
+                8px;
+
+
+            cursor:
+
+                pointer;
+
         }
+
 
         .check-item:hover {
-            border-color: var(--accent);
+
+            border-color:
+
+                var(--accent);
+
         }
+
 
         .check-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
 
-            cursor: pointer;
-            accent-color: #22c55e;
+            width:
+
+                18px;
+
+            height:
+
+                18px;
+
+            margin-top:
+
+                2px;
+
+            cursor:
+
+                pointer;
+
+            accent-color:
+
+                #22c55e;
+
         }
+
 
         .check-item.checked {
-            background: rgba(22, 101, 52, 0.25);
-            border-color: #22c55e;
+
+            background:
+
+                rgba(
+                    22,
+                    101,
+                    52,
+                    0.25
+                );
+
+
+            border-color:
+
+                #22c55e;
+
         }
 
+
         .check-progress {
-            margin-top: 12px;
-            color: var(--muted);
-            font-size: 0.9rem;
+
+            margin-top:
+
+                12px;
+
+            color:
+
+                var(--muted);
+
+            font-size:
+
+                0.9rem;
+
         }
+
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
+
+    <!-- NAVIGATION -->
+
     <nav>
-        <a href="index.html">Command Center</a>
-        <a href="toolbox.html">Toolbox</a>
+
+        <a href="index.html">
+            Command Center
+        </a>
+
+        <a href="toolbox.html">
+            Toolbox
+        </a>
+
     </nav>
 
 
+    <!-- PAGE HEADER -->
+
     <div class="hero">
 
-        <h1>Inject Memo Builder</h1>
+        <h1>
+            Inject Memo Builder
+        </h1>
 
         <p>
-            Enter your own response, add screenshots,
-            preview the memo, then save it as a PDF.
+            Enter your own response,
+            add screenshots,
+            preview the memo,
+            then save it as a PDF.
         </p>
 
     </div>
@@ -79,9 +241,13 @@
 
     <div class="notice">
 
-        <strong>Important:</strong>
+        <strong>
+            Important:
+        </strong>
 
-        This page does not generate or rewrite inject content.
+        This page does not generate
+        or rewrite inject content.
+
         It only formats what you enter.
 
     </div>
@@ -91,13 +257,19 @@
 
     <div class="panel">
 
-        <h2>Memo details</h2>
+        <h2>
+            Memo Details
+        </h2>
+
 
         <div class="grid">
 
+
             <div class="field">
 
-                <label>Team number</label>
+                <label>
+                    Team number
+                </label>
 
                 <input
                     id="team"
@@ -109,10 +281,13 @@
 
             <div class="field">
 
-                <label>Date</label>
+                <label>
+                    Date
+                </label>
 
                 <input
                     id="date"
+                    placeholder="September 26, 2026"
                 >
 
             </div>
@@ -120,10 +295,13 @@
 
             <div class="field">
 
-                <label>Inject name</label>
+                <label>
+                    Inject name
+                </label>
 
                 <input
                     id="injectName"
+                    placeholder="Password Policy for Windows and Linux"
                 >
 
             </div>
@@ -131,10 +309,13 @@
 
             <div class="field">
 
-                <label>Inject ID / number</label>
+                <label>
+                    Inject ID / number
+                </label>
 
                 <input
                     id="injectId"
+                    placeholder="PW945"
                 >
 
             </div>
@@ -142,7 +323,9 @@
 
             <div class="field">
 
-                <label>To</label>
+                <label>
+                    To
+                </label>
 
                 <input
                     id="to"
@@ -151,16 +334,23 @@
 
             </div>
 
+
         </div>
 
 
         <div class="field">
 
-            <label>Purpose / introduction</label>
+            <label>
+                Purpose / Introduction
+            </label>
 
-            <textarea id="purpose"></textarea>
+            <textarea
+                id="purpose"
+                placeholder="Write your memo introduction here."
+            ></textarea>
 
         </div>
+
 
     </div>
 
@@ -169,32 +359,53 @@
 
     <div class="panel">
 
-        <h2>Requirements</h2>
+        <h2>
+            Requirements
+        </h2>
+
+
+        <p style="color: var(--muted);">
+
+            Add one section for each
+            requirement or part
+            of the inject.
+
+        </p>
+
 
         <div id="requirements"></div>
+
 
         <button
             type="button"
             class="btn"
             onclick="addRequirement()"
         >
-            + Add requirement
+            + Add Requirement
         </button>
+
 
     </div>
 
 
-    <!-- RESULTS -->
+    <!-- IMPLEMENTATION / RESULTS -->
 
     <div class="panel">
 
-        <h2>Implementation / Results</h2>
+        <h2>
+            Implementation / Results
+        </h2>
+
 
         <div class="field">
 
-            <textarea id="results"></textarea>
+            <textarea
+                id="results"
+                placeholder="Describe your implementation or final results here."
+            ></textarea>
 
         </div>
+
 
     </div>
 
@@ -203,17 +414,35 @@
 
     <div class="panel">
 
-        <h2>Screenshots / Evidence</h2>
+        <h2>
+            Screenshots / Evidence
+        </h2>
+
+
+        <p style="color: var(--muted);">
+
+            Upload screenshots
+            and provide a caption
+            for each.
+
+            They will automatically
+            be centered and numbered
+            in the final memo.
+
+        </p>
+
 
         <div id="screenshots"></div>
+
 
         <button
             type="button"
             class="btn"
             onclick="addScreenshotRow()"
         >
-            + Add screenshot
+            + Add Screenshot
         </button>
+
 
     </div>
 
@@ -222,7 +451,10 @@
 
     <div class="panel">
 
-        <h2>Final Check</h2>
+        <h2>
+            Final Check
+        </h2>
+
 
         <div class="checklist">
 
@@ -251,7 +483,8 @@
                 >
 
                 <span>
-                    Used team number, not personal name
+                    Used team number,
+                    not personal name
                 </span>
 
             </label>
@@ -281,7 +514,8 @@
                 >
 
                 <span>
-                    Tables / figures are labeled if used
+                    Tables / figures are labeled
+                    if used
                 </span>
 
             </label>
@@ -296,7 +530,8 @@
                 >
 
                 <span>
-                    Grammar and spelling checked manually
+                    Grammar and spelling
+                    checked manually
                 </span>
 
             </label>
@@ -311,7 +546,8 @@
                 >
 
                 <span>
-                    Understandable to a nontechnical audience
+                    Understandable to
+                    a nontechnical audience
                 </span>
 
             </label>
@@ -326,8 +562,13 @@
                 >
 
                 <span>
+
                     Filename follows
-                    <code>team##_inject##.pdf</code>
+
+                    <code>
+                        team##_inject##.pdf
+                    </code>
+
                 </span>
 
             </label>
@@ -342,10 +583,12 @@
                 >
 
                 <span>
-                    Ready to submit before the deadline
+                    Ready to submit
+                    before the deadline
                 </span>
 
             </label>
+
 
         </div>
 
@@ -357,12 +600,14 @@
             0 / 8 complete
         </div>
 
+
     </div>
 
 
     <!-- ACTION BUTTONS -->
 
     <div class="toolbar">
+
 
         <button
             class="btn primary"
@@ -387,6 +632,7 @@
             Clear
         </button>
 
+
     </div>
 
 
@@ -406,36 +652,54 @@
 
     </div>
 
+
 </div>
 
+
+<!-- SHARED REPORT FUNCTIONS -->
 
 <script src="report_builder.js"></script>
 
 
 <script>
 
+
 /* =========================================================
    REQUIREMENTS
    ========================================================= */
 
+
 let requirementCounter = 0;
 
 
-function addRequirement(title = "", response = "") {
 
-    const idx = ++requirementCounter;
+function addRequirement(
+    title = "",
+    response = ""
+) {
 
-    const row = document.createElement("div");
 
-    row.className = "req-row";
+    const idx =
+        ++requirementCounter;
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "req-row";
 
 
     row.innerHTML = `
 
+
         <div class="field">
 
             <label>
-                Requirement / heading
+                Requirement / Heading
             </label>
 
             <input
@@ -449,7 +713,7 @@ function addRequirement(title = "", response = "") {
         <div class="field">
 
             <label>
-                Your response
+                Your Response
             </label>
 
             <textarea
@@ -463,39 +727,63 @@ function addRequirement(title = "", response = "") {
             type="button"
             class="btn danger remove-req"
         >
-            Remove requirement
+            Remove Requirement
         </button>
+
 
     `;
 
 
-    el("requirements").appendChild(row);
-
-
-    row.querySelector(".req-title").value = title;
-
-    row.querySelector(".req-response").value = response;
+    el("requirements")
+        .appendChild(
+            row
+        );
 
 
     row
-        .querySelectorAll("input,textarea")
-        .forEach(input => {
-
-            input.addEventListener(
-                "input",
-                buildPreview
-            );
-
-        });
+        .querySelector(
+            ".req-title"
+        )
+        .value =
+            title;
 
 
-    row.querySelector(".remove-req").onclick = () => {
+    row
+        .querySelector(
+            ".req-response"
+        )
+        .value =
+            response;
 
-        row.remove();
 
-        buildPreview();
+    row
+        .querySelectorAll(
+            "input, textarea"
+        )
+        .forEach(
+            input => {
 
-    };
+                input.addEventListener(
+                    "input",
+                    buildPreview
+                );
+
+            }
+        );
+
+
+    row
+        .querySelector(
+            ".remove-req"
+        )
+        .onclick =
+            () => {
+
+                row.remove();
+
+                buildPreview();
+
+            };
 
 
     buildPreview();
@@ -506,9 +794,15 @@ function addRequirement(title = "", response = "") {
 
 function resetRequirements() {
 
-    el("requirements").innerHTML = "";
 
-    requirementCounter = 0;
+    el("requirements")
+        .innerHTML =
+            "";
+
+
+    requirementCounter =
+        0;
+
 
     addRequirement();
 
@@ -518,39 +812,79 @@ function resetRequirements() {
 
 function getRequirements() {
 
+
     return [
-        ...document.querySelectorAll(".req-row")
-    ].map((row, index) => ({
 
-        title:
-            safe(
-                row.querySelector(".req-title").value
+        ...document
+            .querySelectorAll(
+                ".req-row"
             )
-            ||
-            `Requirement ${index + 1}`,
 
-        response:
-            row.querySelector(".req-response").value
-            ||
-            ""
+    ].map(
 
-    }));
+        (
+            row,
+            index
+        ) => ({
+
+
+            title:
+
+                safe(
+
+                    row
+                        .querySelector(
+                            ".req-title"
+                        )
+                        .value
+
+                )
+
+                ||
+
+                `Requirement ${index + 1}`,
+
+
+            response:
+
+                row
+                    .querySelector(
+                        ".req-response"
+                    )
+                    .value
+
+                ||
+
+                ""
+
+
+        })
+
+    );
 
 }
 
 
 /* =========================================================
-   FUNCTIONAL FINAL CHECKLIST
+   FINAL CHECKLIST
    ========================================================= */
+
 
 const checklistStorageKey =
     "ccdc:inject-final-checklist";
 
 
+
 function getChecklistItems() {
 
+
     return [
-        ...document.querySelectorAll(".final-check")
+
+        ...document
+            .querySelectorAll(
+                ".final-check"
+            )
+
     ];
 
 }
@@ -559,35 +893,57 @@ function getChecklistItems() {
 
 function updateChecklist() {
 
-    const items = getChecklistItems();
 
-    let completed = 0;
-
-
-    items.forEach(item => {
-
-        const row =
-            item.closest(".check-item");
+    const items =
+        getChecklistItems();
 
 
-        if (item.checked) {
+    let completed =
+        0;
 
-            completed++;
 
-            row.classList.add("checked");
+    items.forEach(
+        item => {
+
+
+            const row =
+                item.closest(
+                    ".check-item"
+                );
+
+
+            if (
+                item.checked
+            ) {
+
+
+                completed++;
+
+
+                row.classList.add(
+                    "checked"
+                );
+
+
+            }
+
+            else {
+
+
+                row.classList.remove(
+                    "checked"
+                );
+
+
+            }
 
         }
-
-        else {
-
-            row.classList.remove("checked");
-
-        }
-
-    });
+    );
 
 
-    el("checkProgress").textContent =
+    el("checkProgress")
+        .textContent =
+
         `${completed} / ${items.length} complete`;
 
 
@@ -599,20 +955,34 @@ function updateChecklist() {
 
 function saveChecklist() {
 
-    const state = {};
+
+    const state =
+        {};
 
 
-    getChecklistItems().forEach(item => {
+    getChecklistItems()
+        .forEach(
+            item => {
 
-        state[item.id] =
-            item.checked;
 
-    });
+                state[
+                    item.id
+                ] =
+                    item.checked;
+
+
+            }
+        );
 
 
     localStorage.setItem(
+
         checklistStorageKey,
-        JSON.stringify(state)
+
+        JSON.stringify(
+            state
+        )
+
     );
 
 }
@@ -621,13 +991,17 @@ function saveChecklist() {
 
 function loadChecklist() {
 
+
     const saved =
         localStorage.getItem(
             checklistStorageKey
         );
 
 
-    if (!saved) {
+    if (
+        !saved
+    ) {
+
 
         updateChecklist();
 
@@ -638,24 +1012,40 @@ function loadChecklist() {
 
     try {
 
+
         const state =
-            JSON.parse(saved);
+            JSON.parse(
+                saved
+            );
 
 
-        getChecklistItems().forEach(item => {
+        getChecklistItems()
+            .forEach(
+                item => {
 
-            item.checked =
-                state[item.id]
-                ||
-                false;
 
-        });
+                    item.checked =
+                        state[
+                            item.id
+                        ]
+                        ||
+                        false;
+
+
+                }
+            );
+
 
     }
 
     catch {
 
-        /* Ignore malformed saved data */
+
+        /*
+            If saved checklist data is corrupted,
+            simply ignore it.
+        */
+
 
     }
 
@@ -668,11 +1058,18 @@ function loadChecklist() {
 
 function resetChecklist() {
 
-    getChecklistItems().forEach(item => {
 
-        item.checked = false;
+    getChecklistItems()
+        .forEach(
+            item => {
 
-    });
+
+                item.checked =
+                    false;
+
+
+            }
+        );
 
 
     localStorage.removeItem(
@@ -686,16 +1083,23 @@ function resetChecklist() {
 
 
 /* =========================================================
-   CLEAR ENTIRE PAGE
+   CLEAR FORM
    ========================================================= */
+
 
 function clearInjectForm() {
 
+
     if (
+
         !confirm(
+
             "Clear all memo fields, screenshots, requirements, and checklist items?"
+
         )
+
     ) {
+
 
         return;
 
@@ -704,17 +1108,24 @@ function clearInjectForm() {
 
     document
         .querySelectorAll(
+
             "input:not([type=file]):not([type=checkbox]), textarea"
+
         )
-        .forEach(input => {
+        .forEach(
+            input => {
 
-            input.value = "";
 
-        });
+                input.value =
+                    "";
+
+
+            }
+        );
 
 
     /*
-        Restore the default recipient after clearing.
+        Restore default recipient.
     */
 
     el("to").value =
@@ -725,8 +1136,9 @@ function clearInjectForm() {
         Remove uploaded screenshots.
     */
 
-    el("screenshots").innerHTML =
-        "";
+    el("screenshots")
+        .innerHTML =
+            "";
 
 
     /*
@@ -737,14 +1149,14 @@ function clearInjectForm() {
 
 
     /*
-        Reset checklist.
+        Reset final checklist.
     */
 
     resetChecklist();
 
 
     /*
-        Give the user one fresh screenshot slot.
+        Give user a fresh screenshot field.
     */
 
     addScreenshotRow();
@@ -756,53 +1168,96 @@ function clearInjectForm() {
 
 
 /* =========================================================
-   PDF PREVIEW
+   BUILD MEMO PREVIEW
    ========================================================= */
+
 
 function buildPreview() {
 
+
     const requirements =
+
         getRequirements()
+
         .map(
-            (requirement, index) => `
+
+            (
+                requirement,
+                index
+            ) => `
+
 
                 <div class="requirement">
+
 
                     <div class="requirement-title">
 
                         ${index + 1}.
-                        ${escapeHTML(requirement.title)}
+
+                        ${escapeHTML(
+                            requirement.title
+                        )}
 
                     </div>
 
+
                     <p>
-                        ${nl(requirement.response)}
+
+                        ${nl(
+                            requirement.response
+                        )}
+
                     </p>
+
 
                 </div>
 
-            `
-        )
-        .join("");
 
+            `
+
+        )
+
+        .join(
+            ""
+        );
+
+
+    /*
+        Combine inject name and ID
+        into the Subject field.
+    */
 
     const subject = [
+
 
         safe(
             el("injectName").value
         ),
 
+
         safe(
             el("injectId").value
         )
 
+
     ]
-    .filter(Boolean)
-    .join(" — ");
+
+    .filter(
+        Boolean
+    )
+
+    .join(
+        " — "
+    );
 
 
+    /*
+        Generate formatted memo.
+    */
 
-    el("preview").innerHTML = `
+    el("preview")
+        .innerHTML = `
+
 
         <h1>
             INTEROFFICE MEMORANDUM
@@ -811,9 +1266,12 @@ function buildPreview() {
 
         <table class="memo-meta">
 
+
             <tr>
 
-                <td>To:</td>
+                <td>
+                    To:
+                </td>
 
                 <td>
                     ${escapeHTML(
@@ -828,7 +1286,9 @@ function buildPreview() {
 
             <tr>
 
-                <td>From:</td>
+                <td>
+                    From:
+                </td>
 
                 <td>
                     ${escapeHTML(
@@ -843,7 +1303,9 @@ function buildPreview() {
 
             <tr>
 
-                <td>Date:</td>
+                <td>
+                    Date:
+                </td>
 
                 <td>
                     ${escapeHTML(
@@ -858,7 +1320,9 @@ function buildPreview() {
 
             <tr>
 
-                <td>Subject:</td>
+                <td>
+                    Subject:
+                </td>
 
                 <td>
                     ${escapeHTML(
@@ -868,17 +1332,23 @@ function buildPreview() {
 
             </tr>
 
+
         </table>
 
 
+
         <p>
+
             ${nl(
                 el("purpose").value
             )}
+
         </p>
 
 
+
         ${requirements}
+
 
 
         ${
@@ -895,9 +1365,11 @@ function buildPreview() {
             </h2>
 
             <p>
+
                 ${nl(
                     el("results").value
                 )}
+
             </p>
 
             `
@@ -907,6 +1379,7 @@ function buildPreview() {
             ""
 
         }
+
 
 
         ${
@@ -930,40 +1403,79 @@ function buildPreview() {
 
         }
 
+
     `;
 
 }
 
 
 /* =========================================================
-   INITIALIZATION
+   INITIALIZE PAGE
    ========================================================= */
+
+
+/*
+    Automatically update preview
+    as normal fields are edited.
+*/
 
 wireInputs();
 
 
+/*
+    Start with one requirement.
+*/
+
 resetRequirements();
 
+
+/*
+    Start with one screenshot field.
+*/
 
 addScreenshotRow();
 
 
-getChecklistItems().forEach(item => {
+/*
+    Make checklist functional.
+*/
 
-    item.addEventListener(
-        "change",
-        updateChecklist
+getChecklistItems()
+    .forEach(
+        item => {
+
+
+            item.addEventListener(
+
+                "change",
+
+                updateChecklist
+
+            );
+
+
+        }
     );
 
-});
 
+/*
+    Restore checklist state
+    if the page was refreshed.
+*/
 
 loadChecklist();
 
 
+/*
+    Build initial preview.
+*/
+
 buildPreview();
+
 
 </script>
 
+
 </body>
+
 </html>
